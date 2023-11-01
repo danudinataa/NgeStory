@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SubmissionAwalStoryApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/coyote</item>
+        <item name="colorPrimaryVariant">@color/light_cream</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/xanthous</item>
+        <item name="colorSecondaryVariant">@color/gunmetal</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorAccent">@color/fade_cream</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="android:windowBackground">@color/light_cream</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="Theme.SubmissionAwalStoryApp" parent="Base.Theme.SubmissionAwalStoryApp" />
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="coyote">#867748</color>
+    <color name="light_cream">#FEE0D0</color>
+    <color name="xanthous">#F3B841</color>
+    <color name="gunmetal">#2A3539</color>
+    <color name="fade_cream">#FDEBE0</color>
+</resources>
