@@ -34,13 +34,12 @@ interface APIService {
 
     @GET("stories")
     fun getStoryList(
-        @Header("Authorization") token:String,
-        @Query("size") size:Int
+        @Header("Authorization") token:String
     ): Call<ListStory>
 
     @Multipart
     @POST("stories")
-    fun doUploadImage(
+    fun uploadImage(
         @Header("Authorization") token:String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,

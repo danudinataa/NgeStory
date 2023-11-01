@@ -46,5 +46,11 @@
     <string name="successful_register">Register Successful! Please login using the registered email and password!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="app_logo_ngestory">app logo NgeStory</string>
+
+
     <string name="dismiss">DISMISS</string>
+    <string name="stories">Stories</string>
+    <string name="profile">Profile</string>
+    <string name="story_content_image">Story content image</string>
+    <string name="add_story">Add Story</string>
 </resources>

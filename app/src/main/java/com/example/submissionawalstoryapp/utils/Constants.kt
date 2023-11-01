@@ -14,8 +14,6 @@ object Constants {
     const val preferenceDefaultValue = "Unset"
     const val preferenceDefaultDate = "2010/01/01 00:00:00"
 
-    val emailPattern = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-
     const val SPLASH_SCREEN_TIMER: Long = 3000
     const val REQUEST_CODE_PERMISSIONS = 10
     val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
@@ -27,4 +25,9 @@ object Constants {
     const val SUFFIX_IMAGE_FILE = ".jpg"
     const val SIZE_BYTE_ARRAY = 1024
     const val STREAM_LENGTH = 1000000
+
+    const val EXTRA_USERNAME = "extra_username"
+    const val EXTRA_ID = "extra_id"
+    const val EXTRA_URL = "extra_url"
+    const val EXTRA_HTML = "extra_html"
 }
