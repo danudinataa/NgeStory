@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ItemStoryLayoutBinding
+import com.example.submissionawalstoryapp.utils.Helper.withDateFormat
 
 class ListStoryAdapter(private val githubUserList: List<Story>)
     : RecyclerView.Adapter<ListStoryAdapter.CustomViewHolder>() {
@@ -20,7 +21,7 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
                 .skipMemoryCache(true)
                 .into(binding.imgStory)
             binding.tvUsername.text = story.name
-            binding.tvDate.text = story.createdAt
+            binding.tvDate.text = story.createdAt.withDateFormat()
             binding.tvDescription.text = story.description
         }
     }
