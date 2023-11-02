@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">NgeStory</string>
+    <string name="app_name" translatable="false">NgeStory</string>
     <string name="welcome">Hi! Welcome to</string>
     <string name="login">Login</string>
-    <string name="email">email</string>
-    <string name="password">password</string>
+    <string name="email" translatable="false">email</string>
+    <string name="password" translatable="false">password</string>
     <string name="not_registered">Don\'t have account?</string>
     <string name="register_now">Register Now</string>
     <string name="register">Register</string>
@@ -38,16 +38,16 @@
     // UI success
     <string name="successful_register">Register Successful! Please login using the registered email and password!</string>
     <string name="success_upload_image">Story success uploaded!</string>
-    <string name="app_logo_ngestory">app logo NgeStory</string>
+    <string name="app_logo_ngestory" translatable="false">app logo NgeStory</string>
 
 
     <string name="dismiss">DISMISS</string>
-    <string name="stories">Stories</string>
-    <string name="profile">Profile</string>
-    <string name="story_content_image">Story content image</string>
+    <string name="stories" translatable="false">Stories</string>
+    <string name="profile" translatable="false">Profile</string>
+    <string name="story_content_image" translatable="false">Story content image</string>
     <string name="add_story">Create</string>
     <string name="language">Language</string>
-    <string name="change">change</string>
+    <string name="change">Change</string>
     <string name="logout">Logout</string>
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>

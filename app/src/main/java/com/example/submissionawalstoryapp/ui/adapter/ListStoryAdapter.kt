@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ItemStoryLayoutBinding
 import com.example.submissionawalstoryapp.utils.Helper.withDateFormat

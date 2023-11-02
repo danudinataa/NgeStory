@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Hai! Selamat datang di</string>
+    <string name="login">Masuk</string>
+    <string name="not_registered">Belum punya akun?</string>
+    <string name="register_now">Daftar sekarang</string>
+    <string name="register">Daftar</string>
+    <string name="name">nama</string>
+    <string name="login_now">"Masuk "</string>
+    <string name="have_account">Sudah punya akun?</string>
+    <string name="error_email_invalid">Email tidak valid!</string>
+    <string name="error_fetch_data">Error ketika mengunmpulkan data!</string>
+    <string name="error_invalid_login">Email atau password tidak valid!</string>
+    <string name="error_login">Error saat login!</string>
+    <string name="error_register">Gagal mendaftar!</string>
+    <string name="error_invalid_input">Input tidak valid!</string>
+    <string name="error_server">Terjadi error pada server. Coba lagi nanti!</string>
+    <string name="empty_image_description">Gambar dan deskripsi harus diisi!</string>
+    <string name="empty_email_password">Email dan password harus diisi!</string>
+    <string name="invalid_email">Format email tidak valid!</string>
+    <string name="empty_email_password_name">Nama, email, dan password tidak valid!</string>
+    <string name="password_policy">Password setidaknya harus 8 karakter</string>
+    <string name="permission_not_granted">Izin tidak diberikan!</string>
+    <string name="empty_image">Silakan input gambar untuk story!</string>
+    <string name="empty_description">Deskripsi harus diisi!</string>
+    <string name="successful_register">Berhasil Daftar! Silakan login menggunakan email dan password yang terdaftar!</string>
+    <string name="success_upload_image">Story berhasil diupload!</string>
+    <string name="dismiss">BATAL</string>
+    <string name="add_story">Tambah</string>
+    <string name="language">Bahasa</string>
+    <string name="change">Ganti</string>
+    <string name="logout">Keluar</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="description">Deskripsi</string>
+    <string name="submit">KIRIM</string>
+</resources>

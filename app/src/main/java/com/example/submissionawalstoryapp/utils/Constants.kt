@@ -2,18 +2,6 @@ package com.example.submissionawalstoryapp.utils
 
 object Constants {
 
-    enum class UserPreferences {
-        UserUID, Username, UserEmail, UserToken, UserLastLogin
-    }
-
-    enum class StoryDetail {
-        Username, ImageURL, Description, UploadTime
-    }
-
-    const val preferenceName = "User Settings"
-    const val preferenceDefaultValue = "Unset"
-    const val preferenceDefaultDate = "2010/01/01 00:00:00"
-
     const val SPLASH_SCREEN_TIMER: Long = 3000
     const val REQUEST_CODE_PERMISSIONS = 10
     val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
@@ -25,9 +13,4 @@ object Constants {
     const val SUFFIX_IMAGE_FILE = ".jpg"
     const val SIZE_BYTE_ARRAY = 1024
     const val STREAM_LENGTH = 1000000
-
-    const val EXTRA_USERNAME = "extra_username"
-    const val EXTRA_ID = "extra_id"
-    const val EXTRA_URL = "extra_url"
-    const val EXTRA_HTML = "extra_html"
 }

@@ -43,8 +43,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        playAnimation()
-
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
@@ -110,35 +108,6 @@ class LoginFragment : Fragment() {
         )
 
         loginPreference.setLogin(loginModel)
-    }
-
-    private fun playAnimation() {
-        val duration = 500L
-
-        fun createAlphaAnimator(view: View) = ObjectAnimator.ofFloat(view, View.ALPHA, 1f).setDuration(duration)
-
-        val labelTextView = createAlphaAnimator(binding.tvLabel)
-        val emailEditTextLayout = createAlphaAnimator(binding.tilEmail)
-        val emailEditText = createAlphaAnimator(binding.etEmail)
-
-        val passwordEditTextLayout = createAlphaAnimator(binding.tilPassword)
-        val passwordEditText = createAlphaAnimator(binding.etPassword)
-
-        val loginButton = createAlphaAnimator(binding.btnLogin)
-        val containerOpt = createAlphaAnimator(binding.containerOpt)
-
-        val together = AnimatorSet().apply {
-            playTogether(loginButton, containerOpt)
-        }
-
-        AnimatorSet().apply {
-            playSequentially(
-                emailEditTextLayout, emailEditText, passwordEditTextLayout,
-                passwordEditText, labelTextView,
-                together
-            )
-            start()
-        }
     }
 }
 
