@@ -1,7 +1,9 @@
 package com.example.submissionawalstoryapp.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -14,9 +16,10 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
 
     lateinit var listener: OnItemClickListener
 
-    inner class CustomViewHolder(private val binding: ItemStoryLayoutBinding)
+    inner class CustomViewHolder(val binding: ItemStoryLayoutBinding)
         : RecyclerView.ViewHolder(binding.root) {
         fun bindList(story: Story){
+            ViewCompat.setTransitionName(binding.imgStory, "img_story_anim")
             Glide.with(itemView.context)
                 .load(story.photoUrl)
                 .skipMemoryCache(true)
@@ -42,11 +45,11 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bindList(githubUserList[position])
         holder.itemView.setOnClickListener {
-            listener.onItemClicked(githubUserList[position])
+            listener.onItemClicked(githubUserList[position], holder.binding.imgStory)
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClicked(item: Story)
+        fun onItemClicked(item: Story, sharedView: View)
     }
 }

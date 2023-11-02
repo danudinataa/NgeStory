@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -99,12 +100,16 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
         _binding = null
     }
 
-    override fun onItemClicked(item: Story) {
+    override fun onItemClicked(item: Story, sharedView: View) {
         val intent = Intent(requireContext(), DetailStoryActivity::class.java)
         intent.putExtra(Constants.DETAIL_STORY, item)
-        startActivity(
-            intent,
-            ActivityOptionsCompat.makeSceneTransitionAnimation(binding.root.context as Activity).toBundle()
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            requireActivity(),
+            sharedView,
+            ViewCompat.getTransitionName(sharedView) ?: ""
         )
+
+        startActivity(intent, options.toBundle())
     }
 }

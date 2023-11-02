@@ -19,7 +19,6 @@ class DetailStoryActivity : AppCompatActivity() {
         binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //val detailStory = intent.getParcelableExtra<Story>(Constants.DETAIL_STORY) as Story
         val detailStory = getParcelableExtra(intent, Constants.DETAIL_STORY, Story::class.java) as Story
 
         with(binding) {
