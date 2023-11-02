@@ -66,4 +66,5 @@ object Helper {
     fun validateMinLength(password: String): Boolean =
         !TextUtils.isEmpty(password) && password.length >= Constants.MIN_LENGTH_PASSWORD
 
+
 }

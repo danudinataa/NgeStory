@@ -22,7 +22,6 @@
         android:id="@+id/lav_logo_anim"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:transitionName="logo"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
