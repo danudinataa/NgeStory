@@ -27,6 +27,9 @@ class AddStoryViewModel(application: Application) : AndroidViewModel(application
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess: LiveData<Boolean> = _isSuccess
+
     fun postCreateStory(imageFile: File, desc: String) {
         _isLoading.value = true
 
@@ -56,6 +59,7 @@ class AddStoryViewModel(application: Application) : AndroidViewModel(application
                 response: Response<UploadStory>
             ) {
                 if (response.body()?.error == false) {
+                    _isSuccess.value = true
                     _isLoading.value = false
                     _isError.value = false
                 } else {

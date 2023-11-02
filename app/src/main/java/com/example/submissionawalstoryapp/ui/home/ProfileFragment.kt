@@ -67,35 +67,6 @@ class ProfileFragment : Fragment() {
         return root
     }
 
-
-
-    /*
-    private fun getCurrentTheme(context: Context) {
-        val pref = context.let { SettingPreferences.getInstance(it.dataStore) }
-        val settingViewModel = ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
-
-        settingViewModel.getThemeSettings().observe(viewLifecycleOwner) { isDarkModeActive: Boolean ->
-            val mode = if (isDarkModeActive) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-            AppCompatDelegate.setDefaultNightMode(mode)
-            binding.switchTheme.isChecked = isDarkModeActive
-        }
-    }
-
-     */
-
-    /*
-
-    private fun changeThemeHandler(context: Context) {
-        val pref = context.let { SettingPreferences.getInstance(it.dataStore) }
-        val settingViewModel = ViewModelProvider(this, SettingViewModelFactory(pref)).get(SettingViewModel::class.java)
-
-        binding.switchTheme.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
-            settingViewModel.saveThemeSetting(isChecked)
-        }
-    }
-
-     */
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

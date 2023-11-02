@@ -104,10 +104,14 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun submitStory() {
         val description = binding.etDescription.text.toString()
-        if (description.isNotEmpty() && getFile != null) {
-            addStoryViewModel.postCreateStory(getFile!!, description)
+        if (description.isEmpty() && getFile == null) {
+            showErrorMessageDialog(R.string.empty_image_description, R.raw.error_anim)
+        } else if (getFile == null) {
+            showErrorMessageDialog(R.string.empty_image, R.raw.error_anim)
+        } else if (description.isEmpty()) {
+            showErrorMessageDialog(R.string.empty_description, R.raw.error_anim)
         } else {
-            showErrorMessageOrEmptyDialog()
+            addStoryViewModel.postCreateStory(getFile!!, description)
         }
     }
 
@@ -115,24 +119,26 @@ class AddStoryActivity : AppCompatActivity() {
         addStoryViewModel.isLoading.observe(this) { isLoading ->
             handleLoadingAndErrorStates(isLoading)
         }
+        addStoryViewModel.isError.observe(this) { isError ->
+            if (isError) {
+                showErrorMessageDialog(R.string.error_server, R.raw.error_anim)
+            }
+        }
+        addStoryViewModel.isSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                showSuccessDialog()
+            }
+        }
     }
 
-    private fun showErrorMessageOrEmptyDialog() {
-        val errorStringRes = if (getFile == null) R.string.empty_image_description else R.string.error_server
-        val animationRes = if (getFile == null) R.raw.error_anim else R.raw.error_anim
-        CustomDialog(this, getString(errorStringRes), animationRes).show()
+    private fun showErrorMessageDialog(errorMessageRes: Int, animationRes: Int) {
+        CustomDialog(this, getString(errorMessageRes), animationRes).show()
     }
+
 
     private fun handleLoadingAndErrorStates(isLoading: Boolean) {
-        val isError = addStoryViewModel.isError.value ?: false
-
         binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
-        binding.layoutAddStory.visibility = if (isLoading) View.GONE else View.VISIBLE
-
-        when {
-            isError -> CustomDialog(this, getString(R.string.error_server), R.raw.error_anim).show()
-            !isError && !isLoading -> showSuccessDialog()
-        }
+        binding.imgPicker.visibility = if (isLoading) View.GONE else View.VISIBLE
     }
 
     private fun showSuccessDialog() {

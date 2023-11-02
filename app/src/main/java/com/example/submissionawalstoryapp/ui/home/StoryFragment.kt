@@ -4,35 +4,30 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submissionawalstoryapp.R
-import com.example.submissionawalstoryapp.ui.adapter.ListStoryAdapter
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.data.viewmodel.StoryViewModel
 import com.example.submissionawalstoryapp.databinding.FragmentStoryBinding
+import com.example.submissionawalstoryapp.ui.adapter.ListStoryAdapter
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.ui.detail.DetailStoryActivity
 import com.example.submissionawalstoryapp.ui.story.AddStoryActivity
 import com.example.submissionawalstoryapp.utils.Constants
-import com.example.submissionawalstoryapp.utils.Constants.EXTRA_HTML
-import com.example.submissionawalstoryapp.utils.Constants.EXTRA_ID
-import com.example.submissionawalstoryapp.utils.Constants.EXTRA_URL
-import com.example.submissionawalstoryapp.utils.Constants.EXTRA_USERNAME
 
 class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
 
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
     private val storyViewModel: StoryViewModel by activityViewModels()
-    private var isGrid: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,10 +93,6 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
             listener = this@StoryFragment
         }
     }
-
-    //private fun handleEmptyStories(isEmpty: Boolean) {
-    //    binding.emptyStories.emptyStoriesConstraintLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
-    //}
 
     override fun onDestroyView() {
         super.onDestroyView()

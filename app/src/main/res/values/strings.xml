@@ -14,8 +14,6 @@
 
     // api response
     <string name="error_email_invalid">Invalid email!</string>
-    <string name="error_large_image">Image out of limit 1 Mb, please choose another image!</string>
-    <string name="error_upload_image">Error while upload image!</string>
     <string name="error_fetch_data">Error fetching data!</string>
     <string name="error_invalid_login">Invalid email or password!</string>
 
@@ -28,12 +26,14 @@
 
 
     // UI error
-    <string name="empty_image_description">Description must be filled!</string>
+    <string name="empty_image_description">Image and description must be filled!</string>
     <string name="empty_email_password">Email and Password must be filled!</string>
     <string name="invalid_email">Email format is invalid!</string>
     <string name="empty_email_password_name">Name, Email, and Password must be filled!</string>
     <string name="password_policy">Password at least 8 characters</string>
     <string name="permission_not_granted">Permission is not granted!</string>
+    <string name="empty_image">Please input image for story!</string>
+    <string name="empty_description">Description must be filled!</string>
 
     // UI success
     <string name="successful_register">Register Successful! Please login using the registered email and password!</string>
