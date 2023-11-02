@@ -52,5 +52,8 @@
     <string name="stories">Stories</string>
     <string name="profile">Profile</string>
     <string name="story_content_image">Story content image</string>
-    <string name="add_story">Add Story</string>
+    <string name="add_story">Create</string>
+    <string name="language">Language</string>
+    <string name="change">change</string>
+    <string name="logout">Logout</string>
 </resources>
