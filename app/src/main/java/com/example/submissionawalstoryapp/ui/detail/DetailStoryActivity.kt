@@ -1,10 +1,9 @@
 package com.example.submissionawalstoryapp.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
-import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ActivityDetailStoryBinding
 import com.example.submissionawalstoryapp.utils.Constants

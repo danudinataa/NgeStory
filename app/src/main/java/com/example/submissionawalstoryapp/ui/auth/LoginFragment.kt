@@ -1,21 +1,13 @@
 package com.example.submissionawalstoryapp.ui.auth
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.preferences.LoginPreference
 import com.example.submissionawalstoryapp.data.response.Login
@@ -24,7 +16,6 @@ import com.example.submissionawalstoryapp.data.viewmodel.LoginViewModel
 import com.example.submissionawalstoryapp.databinding.FragmentLoginBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.ui.home.MainActivity
-import com.example.submissionawalstoryapp.utils.Helper
 
 
 class LoginFragment : Fragment() {

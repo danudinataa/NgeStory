@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Environment
 import android.text.TextUtils
 import android.util.Patterns
-import android.view.Gravity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -20,7 +18,7 @@ import java.util.TimeZone
 object Helper {
     private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
-    val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())
+    private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())
 
     fun createCustomTempFile(context: Context): File =
         File.createTempFile(timeStamp, Constants.SUFFIX_IMAGE_FILE, context.getExternalFilesDir(

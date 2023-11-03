@@ -1,9 +1,8 @@
 package com.example.submissionawalstoryapp.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.submissionawalstoryapp.R
-import com.example.submissionawalstoryapp.databinding.ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {
 
@@ -17,13 +16,5 @@ class AuthActivity : AppCompatActivity() {
                 LoginFragment()
             ).commit()
         }
-    }
-
-    // Fungsi untuk menavigasi ke RegisterFragment
-    fun navigateToRegister() {
-        supportFragmentManager.beginTransaction().replace(
-            R.id.auth_container,
-            RegisterFragment()
-        ).addToBackStack(null).commit()
     }
 }

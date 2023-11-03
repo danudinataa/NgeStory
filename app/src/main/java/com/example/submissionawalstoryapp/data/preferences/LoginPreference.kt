@@ -1,7 +1,6 @@
 package com.example.submissionawalstoryapp.data.preferences
 
 import android.content.Context
-import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginResult
 
 
