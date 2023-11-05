@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.viewmodel.RegisterViewModel
 import com.example.submissionawalstoryapp.databinding.FragmentRegisterBinding
@@ -15,7 +14,9 @@ import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.utils.Helper
 
 class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
+    private val binding by lazy {
+        FragmentRegisterBinding.inflate(layoutInflater)
+    }
     private val registerViewModel by viewModels<RegisterViewModel>()
 
     override fun onCreateView(
@@ -23,7 +24,6 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 

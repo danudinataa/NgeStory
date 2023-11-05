@@ -1,5 +1,6 @@
 package com.example.submissionawalstoryapp.data.remote
 
+import com.example.submissionawalstoryapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,8 +9,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class APIConfig {
     companion object{
         fun getAPIService() : APIService {
-            val loggingInterceptor =
+            val loggingInterceptor = if(BuildConfig.DEBUG) {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            } else {
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+            }
 
             val client =
                 OkHttpClient.Builder()
@@ -17,7 +21,7 @@ class APIConfig {
                     .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://story-api.dicoding.dev/v1/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

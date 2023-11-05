@@ -18,14 +18,16 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
     inner class CustomViewHolder(val binding: ItemStoryLayoutBinding)
         : RecyclerView.ViewHolder(binding.root) {
         fun bindList(story: Story){
-            ViewCompat.setTransitionName(binding.imgStory, "img_story_anim")
-            Glide.with(itemView.context)
-                .load(story.photoUrl)
-                .skipMemoryCache(true)
-                .into(binding.imgStory)
-            binding.tvUsername.text = story.name
-            binding.tvDate.text = story.createdAt.withDateFormat()
-            binding.tvDescription.text = story.description
+            with(binding) {
+                ViewCompat.setTransitionName(imgStory, "img_story_anim")
+                Glide.with(itemView.context)
+                    .load(story.photoUrl)
+                    .skipMemoryCache(true)
+                    .into(imgStory)
+                tvUsername.text = story.name
+                tvDate.text = story.createdAt.withDateFormat()
+                tvDescription.text = story.description
+            }
         }
     }
 

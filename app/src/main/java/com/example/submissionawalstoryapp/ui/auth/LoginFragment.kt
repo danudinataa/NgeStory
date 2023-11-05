@@ -20,7 +20,9 @@ import com.example.submissionawalstoryapp.utils.Helper
 
 
 class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
+    private val binding by lazy {
+        FragmentLoginBinding.inflate(layoutInflater)
+    }
     private val loginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreateView(
@@ -28,7 +30,6 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
