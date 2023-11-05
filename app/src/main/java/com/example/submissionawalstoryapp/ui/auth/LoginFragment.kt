@@ -16,6 +16,7 @@ import com.example.submissionawalstoryapp.data.viewmodel.LoginViewModel
 import com.example.submissionawalstoryapp.databinding.FragmentLoginBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.ui.home.MainActivity
+import com.example.submissionawalstoryapp.utils.Helper
 
 
 class LoginFragment : Fragment() {
@@ -38,13 +39,22 @@ class LoginFragment : Fragment() {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                loginViewModel.postLogin(email, password)
-            } else {
-                CustomDialog(
-                    requireContext(),
-                    getString(R.string.empty_email_password),
-                    R.raw.error_anim).show()
+            when {
+                email.isEmpty() || password.isEmpty() -> {
+                    CustomDialog(requireContext(), getString(R.string.empty_email_password), R.raw.error_anim).show()
+                }
+                !Helper.isValidEmail(email) && !Helper.validateMinLength(password) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_email_password), R.raw.error_anim).show()
+                }
+                !Helper.isValidEmail(email) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_email), R.raw.error_anim).show()
+                }
+                !Helper.validateMinLength(password) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_password), R.raw.error_anim).show()
+                }
+                else -> {
+                    loginViewModel.postLogin(email, password)
+                }
             }
         }
 

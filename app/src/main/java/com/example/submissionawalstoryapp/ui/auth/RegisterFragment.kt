@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.viewmodel.RegisterViewModel
 import com.example.submissionawalstoryapp.databinding.FragmentRegisterBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
+import com.example.submissionawalstoryapp.utils.Helper
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -33,15 +35,25 @@ class RegisterFragment : Fragment() {
             val password = binding.etPassword.text.toString()
             val name = binding.etName.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()) {
-                registerViewModel.postRegister(name, email, password)
-            } else {
-                CustomDialog(
-                    requireContext(),
-                    getString(R.string.empty_email_password_name),
-                    R.raw.error_anim).show()
+            when {
+                email.isEmpty() || password.isEmpty() || name.isEmpty() -> {
+                    CustomDialog(requireContext(), getString(R.string.empty_email_password_name), R.raw.error_anim).show()
+                }
+                !Helper.isValidEmail(email) && !Helper.validateMinLength(password) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_email_password), R.raw.error_anim).show()
+                }
+                !Helper.isValidEmail(email) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_email), R.raw.error_anim).show()
+                }
+                !Helper.validateMinLength(password) -> {
+                    CustomDialog(requireContext(), getString(R.string.invalid_password), R.raw.error_anim).show()
+                }
+                else -> {
+                    registerViewModel.postRegister(name, email, password)
+                }
             }
         }
+
 
         binding.btnLogin.setOnClickListener {
             parentFragmentManager.commit {
@@ -63,6 +75,11 @@ class RegisterFragment : Fragment() {
                 binding.etEmail.text?.clear()
                 binding.etPassword.text?.clear()
                 binding.etName.text?.clear()
+
+                val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.auth_container, LoginFragment())
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
             }
         }
 

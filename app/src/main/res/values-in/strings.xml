@@ -34,4 +34,6 @@
     <string name="camera">Kamera</string>
     <string name="description">Deskripsi</string>
     <string name="submit">KIRIM</string>
+    <string name="invalid_password">Password tidak valid!</string>
+    <string name="invalid_email_password">Email dan password tidak valid!</string>
 </resources>

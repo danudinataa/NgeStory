@@ -21,6 +21,7 @@
     // error
     <string name="error_login">Error while login</string>
     <string name="error_register">Register failed!</string>
+
     <string name="error_invalid_input">Invalid input!</string>
     <string name="error_server">Something error with server. Try again later!</string>
 
@@ -34,6 +35,8 @@
     <string name="permission_not_granted">Permission is not granted!</string>
     <string name="empty_image">Please input image for story!</string>
     <string name="empty_description">Description must be filled!</string>
+    <string name="invalid_password">Invalid Password!</string>
+    <string name="invalid_email_password">Invalid email and Password!</string>
 
     // UI success
     <string name="successful_register">Register Successful! Please login using the registered email and password!</string>
