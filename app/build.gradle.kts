@@ -9,8 +9,6 @@ android {
     namespace = "com.example.submissionawalstoryapp"
     compileSdk = 34
 
-    android.buildFeatures.buildConfig = true
-
     defaultConfig {
         applicationId = "com.example.submissionawalstoryapp"
         minSdk = 24
@@ -19,7 +17,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
     }
 
     buildTypes {
