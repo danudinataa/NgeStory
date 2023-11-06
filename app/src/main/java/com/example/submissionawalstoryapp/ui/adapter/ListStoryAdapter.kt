@@ -4,14 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.submissionawalstoryapp.data.database.ListStoryDetail
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ItemStoryLayoutBinding
 import com.example.submissionawalstoryapp.utils.Helper.withDateFormat
 
 class ListStoryAdapter(private val githubUserList: List<Story>)
-    : RecyclerView.Adapter<ListStoryAdapter.CustomViewHolder>() {
+    : PagingDataAdapter<ListStoryDetail, ListStoryAdapter.CustomViewHolder>(StoryDetailDiffCallback()) {
 
     lateinit var listener: OnItemClickListener
 
@@ -26,6 +29,19 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
             binding.tvUsername.text = story.name
             binding.tvDate.text = story.createdAt.withDateFormat()
             binding.tvDescription.text = story.description
+        }
+    }
+
+    class StoryDetailDiffCallback : DiffUtil.ItemCallback<ListStoryDetail>() {
+        override fun areItemsTheSame(oldItem: ListStoryDetail, newItem: ListStoryDetail): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: ListStoryDetail,
+            newItem: ListStoryDetail
+        ): Boolean {
+            return oldItem == newItem
         }
     }
 

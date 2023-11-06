@@ -9,30 +9,61 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.submissionawalstoryapp.R
-import com.example.submissionawalstoryapp.data.viewmodel.AddStoryViewModel
+import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
+import com.example.submissionawalstoryapp.data.viewmodel.MainViewModel
+import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
+import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.ActivityAddStoryBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
+import com.example.submissionawalstoryapp.ui.home.dataStore
+import com.example.submissionawalstoryapp.ui.maps.PickLocationActivity
 import com.example.submissionawalstoryapp.utils.Constants
 import com.example.submissionawalstoryapp.utils.Helper.createCustomTempFile
 import com.example.submissionawalstoryapp.utils.Helper.uriToFile
+import com.example.submissionawalstoryapp.utils.UserPreferences
+import com.google.android.gms.maps.model.LatLng
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var currentPhotoPath: String
+    private lateinit var token: String
     private var getFile: File? = null
-    private val addStoryViewModel by viewModels<AddStoryViewModel>()
+    private lateinit var fileFinal: File
+    private var latlng: LatLng? = null
+    private val addStoryViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val preferences = UserPreferences.getInstance(dataStore)
+        val dataStoreViewModel =
+            ViewModelProvider(this, ViewModelFactory(preferences))[DataStoreViewModel::class.java]
+
+        dataStoreViewModel.getToken().observe(this) {
+            token = it
+        }
+
         initializeViews()
         observeViewModel()
     }
@@ -42,6 +73,7 @@ class AddStoryActivity : AppCompatActivity() {
             btnGallery.setOnClickListener { chooseFromGallery() }
             btnCamera.setOnClickListener { takePhotoFromCamera() }
             btnSubmit.setOnClickListener { submitStory() }
+            llDetailLocation.setOnClickListener { chooseLocation() }
         }
         checkAndRequestPermissions()
     }
@@ -102,8 +134,24 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let { data ->
+                    val address = data.getStringExtra("address")
+                    val lat = data.getDoubleExtra("lat", 0.0)
+                    val lng = data.getDoubleExtra("lng", 0.0)
+                    latlng = LatLng(lat, lng)
+
+                    binding.tvDetailLocation.text = address
+                }
+            }
+        }
+
     private fun submitStory() {
-        val description = binding.etDescription.text.toString()
+
+        val description = binding.etDescription.text.toString().trim()
+
         if (description.isEmpty() && getFile == null) {
             showErrorMessageDialog(R.string.empty_image_description, R.raw.error_anim)
         } else if (getFile == null) {
@@ -111,8 +159,43 @@ class AddStoryActivity : AppCompatActivity() {
         } else if (description.isEmpty()) {
             showErrorMessageDialog(R.string.empty_description, R.raw.error_anim)
         } else {
-            addStoryViewModel.postCreateStory(getFile!!, description)
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val file = getFile as File
+                    var compressedFile: File? = null
+                    var compressedFileSize = file.length()
+
+                    while (compressedFileSize > 1 * 1024 * 1024) {
+                        compressedFile = withContext(Dispatchers.Default) {
+                            Compressor.compress(applicationContext, file)
+                        }
+                        compressedFileSize = compressedFile.length()
+                    }
+                    fileFinal = compressedFile ?: file
+                }
+
+                val requestImageFile =
+                    fileFinal.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "photo",
+                    fileFinal.name,
+                    requestImageFile
+                )
+                val desPart = description.toRequestBody("text/plain".toMediaType())
+
+                addStoryViewModel.postCreateStory(
+                    imageMultipart,
+                    desPart,
+                    latlng?.latitude,
+                    latlng?.longitude,
+                    token)
+            }
         }
+    }
+
+    private fun chooseLocation() {
+        val intent = Intent(this, PickLocationActivity::class.java)
+        resultLauncher.launch(intent)
     }
 
     private fun observeViewModel() {

@@ -56,4 +56,15 @@
     <string name="camera">Camera</string>
     <string name="description">Description</string>
     <string name="submit">SUBMIT</string>
+    <string name="retry">Retry</string>
+    <string name="current_location">Use Current Location</string>
+    <string name="use_marked_location">Use Marked Location</string>
+    <string name="click_on_the_map">Click on the map to choose location</string>
+    <string name="location_not_found">Location not found!</string>
+    <string name="used_location">Are you sure to use this location?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="start_point">Start Point</string>
+    <string name="icon_location">Icon Location</string>
+    <string name="choose_your_location">Choose your location!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.submissionawalstoryapp.data.remote
 
+import com.example.submissionawalstoryapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +18,7 @@ class APIConfig {
                     .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://story-api.dicoding.dev/v1/")
+                .baseUrl(BuildConfig.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

@@ -7,21 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
-import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.preferences.LoginPreference
 import com.example.submissionawalstoryapp.data.response.LoginResult
-import com.example.submissionawalstoryapp.data.viewmodel.setting.SettingViewModel
-import com.example.submissionawalstoryapp.data.viewmodel.setting.SettingViewModelFactory
 import com.example.submissionawalstoryapp.databinding.ActivitySplashScreenBinding
 import com.example.submissionawalstoryapp.ui.auth.AuthActivity
 import com.example.submissionawalstoryapp.ui.home.MainActivity
 import com.example.submissionawalstoryapp.utils.Constants
-import com.example.submissionawalstoryapp.utils.SettingPreferences
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -46,7 +40,6 @@ class SplashScreenActivity : AppCompatActivity() {
         } else {
             navigateTo(AuthActivity::class.java)
         }
-        handleThemeSettings()
     }
 
     private fun navigateTo(destination: Class<*>) {
@@ -55,14 +48,5 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, Constants.SPLASH_SCREEN_TIMER)
-    }
-
-    private fun handleThemeSettings() {
-        val pref = SettingPreferences.getInstance(dataStore)
-        val settingViewModel = ViewModelProvider(this, SettingViewModelFactory(pref)).get(
-            SettingViewModel::class.java)
-        settingViewModel.getThemeSettings().observe(this) { isDarkModeActive ->
-            AppCompatDelegate.setDefaultNightMode(if (isDarkModeActive) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-        }
     }
 }
