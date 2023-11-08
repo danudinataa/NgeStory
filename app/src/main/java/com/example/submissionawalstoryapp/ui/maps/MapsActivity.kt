@@ -1,14 +1,9 @@
 package com.example.submissionawalstoryapp.ui.maps
 
-import android.content.ContentValues
-import android.content.res.Resources
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.response.ListStoryDetail
@@ -16,19 +11,17 @@ import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
 import com.example.submissionawalstoryapp.data.viewmodel.MainViewModel
 import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
 import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
-
+import com.example.submissionawalstoryapp.databinding.ActivityMapsBinding
+import com.example.submissionawalstoryapp.ui.home.dataStore
+import com.example.submissionawalstoryapp.utils.Helper
+import com.example.submissionawalstoryapp.utils.UserPreferences
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.example.submissionawalstoryapp.databinding.ActivityMapsBinding
-import com.example.submissionawalstoryapp.ui.home.dataStore
-import com.example.submissionawalstoryapp.utils.Helper
-import com.example.submissionawalstoryapp.utils.UserPreferences
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 

@@ -6,12 +6,8 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.submissionawalstoryapp.R
-import com.example.submissionawalstoryapp.data.preferences.LoginPreference
-import com.example.submissionawalstoryapp.data.response.LoginResult
 import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
 import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.FragmentProfileBinding

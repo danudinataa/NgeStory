@@ -1,8 +1,6 @@
 package com.example.submissionawalstoryapp.utils
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
@@ -11,11 +9,8 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import com.google.android.gms.maps.model.LatLng
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Exception
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -48,22 +43,6 @@ object Helper {
         return SimpleDateFormat(Constants.CREATED_DATE_FORMAT, Locale.US).apply { timeZone = TimeZone.getDefault() }.format(value)
     }
 
-    fun reduceFileImage(file: File): File {
-        var compressQuality = 100
-        var streamLength: Int
-        val bitmap = BitmapFactory.decodeFile(file.path)
-        do {
-            val bmpStream = ByteArrayOutputStream().apply {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, this)
-            }
-            val bmpPicByteArray = bmpStream.toByteArray()
-            streamLength = bmpPicByteArray.size
-            compressQuality -= 5
-        } while (streamLength > Constants.STREAM_LENGTH)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
-        return file
-    }
-
     fun isValidEmail(email: String): Boolean =
         !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
@@ -78,16 +57,17 @@ object Helper {
         } else null
     }
 
+    @Suppress("DEPRECATION")
     fun getStringAddress(
         latlng: LatLng?,
         context: Context
     ): String {
-        var fullAddress = "No Location"
+        var fullAddress = "-"
 
         try {
             if (latlng != null) {
                 val address: Address?
-                val gc = Geocoder(context)
+                val gc = Geocoder(context, Locale.getDefault())
                 val list: List<Address> =
                     gc.getFromLocation(latlng.latitude, latlng.longitude, 1) as List<Address>
                 address = if (list.isNotEmpty()) list[0] else null

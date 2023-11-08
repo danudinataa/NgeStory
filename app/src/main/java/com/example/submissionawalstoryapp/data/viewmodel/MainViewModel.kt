@@ -6,11 +6,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.repository.MainRepository
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginDataAccount
-import com.example.submissionawalstoryapp.data.response.LoginResult
 import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,7 +27,6 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
     val isSuccess: LiveData<Boolean> = mainRepository.isSuccess
 
     val userlogin: LiveData<Login> = mainRepository.userlogin
-
 
     fun login(loginDataAccount: LoginDataAccount) {
         mainRepository.getResponseLogin(loginDataAccount)

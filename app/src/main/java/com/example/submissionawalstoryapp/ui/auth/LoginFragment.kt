@@ -118,6 +118,3 @@ class LoginFragment : Fragment() {
         }
     }
 }
-
-
-

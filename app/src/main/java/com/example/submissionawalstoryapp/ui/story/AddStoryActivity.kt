@@ -22,7 +22,6 @@ import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
 import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.ActivityAddStoryBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
-import com.example.submissionawalstoryapp.ui.home.MainActivity
 import com.example.submissionawalstoryapp.ui.home.dataStore
 import com.example.submissionawalstoryapp.ui.maps.PickLocationActivity
 import com.example.submissionawalstoryapp.utils.Constants

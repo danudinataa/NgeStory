@@ -11,12 +11,12 @@
     <string name="login_now">Login Now</string>
     <string name="have_account">Already have account?</string>
 
-
     // api response
     <string name="error_email_invalid">Invalid email!</string>
     <string name="error_fetch_data">Error fetching data!</string>
     <string name="error_invalid_login">Invalid email or password!</string>
-
+    <string name="error_401">Wrong email or password, try again!</string>
+    <string name="error_408">Poor internet connection, try again!</string>
 
     // error
     <string name="error_login">Error while login</string>
@@ -24,7 +24,6 @@
 
     <string name="error_invalid_input">Invalid input!</string>
     <string name="error_server">Something error with server. Try again later!</string>
-
 
     // UI error
     <string name="empty_image_description">Image and description must be filled!</string>

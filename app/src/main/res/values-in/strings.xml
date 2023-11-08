@@ -25,7 +25,7 @@
     <string name="empty_description">Deskripsi harus diisi!</string>
     <string name="successful_register">Berhasil Daftar! Silakan login menggunakan email dan password yang terdaftar!</string>
     <string name="success_upload_image">Story berhasil diupload!</string>
-    <string name="dismiss">BATAL</string>
+    <string name="dismiss">KEMBALI</string>
     <string name="add_story">Tambah</string>
     <string name="language">Bahasa</string>
     <string name="change">Ganti</string>
@@ -49,4 +49,6 @@
     <string name="choose_your_location">Pilih lokasi kamu!</string>
     <string name="success_logout">Berhasil Logout!</string>
     <string name="maps">Peta</string>
+    <string name="error_401">Email atau password salah, coba lagi!</string>
+    <string name="error_408">Koneksi internet lambat, coba lagi!</string>
 </resources>

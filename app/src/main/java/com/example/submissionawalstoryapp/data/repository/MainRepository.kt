@@ -7,14 +7,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.database.StoryDatabase
 import com.example.submissionawalstoryapp.data.remote.APIConfig
 import com.example.submissionawalstoryapp.data.remote.APIService
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.response.LocationStory
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginDataAccount
-import com.example.submissionawalstoryapp.data.response.LoginResult
 import com.example.submissionawalstoryapp.data.response.Register
 import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
 import com.example.submissionawalstoryapp.data.response.UploadStory
@@ -65,17 +64,17 @@ class MainRepository(
                     } else {
                         when (response.code()) {
                             401 -> _message.value =
-                                "Email atau password yang anda masukan salah, silahkan coba lagi"
+                                "Wrong email or password, try again!"
                             408 -> _message.value =
-                                "Koneksi internet anda lambat, silahkan coba lagi"
-                            else -> _message.value = "Pesan error: " + response.message()
+                                "Poor internet connection, try again!"
+                            else -> _message.value = "Error: " + response.message()
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<Login>, t: Throwable) {
                     _isLoading.value = false
-                    _message.value = "Pesan error: " + t.message.toString()
+                    _message.value = "Error: " + t.message.toString()
                 }
 
             })
@@ -93,21 +92,21 @@ class MainRepository(
                 ) {
                     _isLoading.value = false
                     if (response.isSuccessful) {
-                        _message.value = "Yeay akun berhasil dibuat"
+                        _message.value = "Successful created account!"
                     } else {
                         when (response.code()) {
                             400 -> _message.value =
-                                "Email yang anda masukan sudah terdaftar, silahkan coba lagi"
+                                "Email has registered, try again!"
                             408 -> _message.value =
-                                "Koneksi internet anda lambat, silahkan coba lagi"
-                            else -> _message.value = "Pesan error: " + response.message()
+                                "Poor internet connection, try again!"
+                            else -> _message.value = "Error: " + response.message()
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<Register>, t: Throwable) {
                     _isLoading.value = false
-                    _message.value = "Pesan error: " + t.message.toString()
+                    _message.value = "Error: " + t.message.toString()
                 }
 
             })
@@ -179,13 +178,9 @@ class MainRepository(
     @ExperimentalPagingApi
     fun getPagingStories(token: String): LiveData<PagingData<ListStoryDetail>> {
         val pager = Pager(
-            config = PagingConfig(
-                pageSize = 5
-            ),
+            config = PagingConfig(pageSize = 5),
             remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
-            pagingSourceFactory = {
-                storyDatabase.getListStoryDetailDao().getAllStories()
-            }
+            pagingSourceFactory = { storyDatabase.getListStoryDetailDao().getAllStories() }
         )
         return pager.liveData
     }

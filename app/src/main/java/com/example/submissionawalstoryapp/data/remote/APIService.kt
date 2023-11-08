@@ -1,6 +1,5 @@
 package com.example.submissionawalstoryapp.data.remote
 
-import com.example.submissionawalstoryapp.data.response.ListStory
 import com.example.submissionawalstoryapp.data.response.LocationStory
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginDataAccount
@@ -20,7 +19,6 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-import java.io.File
 
 interface APIService {
     @POST("login")
@@ -29,14 +27,6 @@ interface APIService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<Login>
-
-    @POST("register")
-    @FormUrlEncoded
-    fun register(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<Register>
 
     @Multipart
     @POST("stories")

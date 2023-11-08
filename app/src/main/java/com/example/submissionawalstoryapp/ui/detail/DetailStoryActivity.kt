@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.IntentCompat.getParcelableExtra
 import com.bumptech.glide.Glide
 import com.example.submissionawalstoryapp.data.response.ListStoryDetail
-import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ActivityDetailStoryBinding
 import com.example.submissionawalstoryapp.utils.Constants
 import com.example.submissionawalstoryapp.utils.Helper
