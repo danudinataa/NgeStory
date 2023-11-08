@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
@@ -67,6 +68,7 @@ class StoryFragment : Fragment() {
             val intent = Intent(binding.root.context, MapsActivity::class.java)
             startActivity(intent)
         }
+
         return root
     }
 
@@ -132,6 +134,28 @@ class StoryFragment : Fragment() {
                 startActivity(intent, options.toBundle())
             }
         })
+
+        with(binding) {
+            rvStory.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy > 30 && fabAddstory.isExtended && fabMapstory.isExtended) {
+                        fabAddstory.shrink()
+                        fabMapstory.shrink()
+                    }
+                    if (dy < -40 && !fabAddstory.isExtended && !fabMapstory.isExtended) {
+                        fabAddstory.extend()
+                        fabMapstory.extend()
+                    }
+                    if (!rvStory.canScrollVertically(-1)) {
+                        fabAddstory.extend()
+                        fabMapstory.extend()
+                    }
+                }
+            })
+        }
+
     }
 
     private fun showLoading(isLoading: Boolean) {
