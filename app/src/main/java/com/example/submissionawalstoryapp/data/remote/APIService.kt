@@ -38,11 +38,6 @@ interface APIService {
         @Field("password") password: String
     ): Call<Register>
 
-    @GET("stories")
-    fun getStoryList(
-        @Header("Authorization") token:String
-    ): Call<ListStory>
-
     @Multipart
     @POST("stories")
     fun uploadStory(

@@ -6,28 +6,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submissionawalstoryapp.R
-import com.example.submissionawalstoryapp.data.response.Story
-import com.example.submissionawalstoryapp.data.viewmodel.StoryViewModel
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
+import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
+import com.example.submissionawalstoryapp.data.viewmodel.MainViewModel
+import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
+import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.FragmentStoryBinding
 import com.example.submissionawalstoryapp.ui.adapter.ListStoryAdapter
+import com.example.submissionawalstoryapp.ui.adapter.LoadingStateAdapter
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.ui.detail.DetailStoryActivity
 import com.example.submissionawalstoryapp.ui.story.AddStoryActivity
 import com.example.submissionawalstoryapp.utils.Constants
+import com.example.submissionawalstoryapp.utils.UserPreferences
 
-class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
+class StoryFragment : Fragment() {
 
     private var _binding: FragmentStoryBinding? = null
     private val binding get() = _binding!!
-    private val storyViewModel: StoryViewModel by activityViewModels()
+    private val pref by lazy {
+        UserPreferences.getInstance(requireContext().dataStore)
+    }
+    private lateinit var token: String
+    private val storyViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, MainViewModelFactory(requireContext()))[MainViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +47,13 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
     ): View {
         _binding = FragmentStoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val dataStoreViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[DataStoreViewModel::class.java]
+        dataStoreViewModel.getToken().observe(viewLifecycleOwner) {
+            token = it
+            setupStoryList(it)
+        }
 
         observeViewModel()
         binding.fabAddstory.setOnClickListener {
@@ -47,18 +65,14 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        storyViewModel.getStories()
+        if (::token.isInitialized) {
+            storyViewModel.getStories(token)
+        } else {
+            CustomDialog(requireContext(), getString(R.string.error_fetch_data), R.raw.error_anim )
+        }
     }
 
     private fun observeViewModel() {
-        storyViewModel.listStories.observe(viewLifecycleOwner) { stories ->
-            if (stories.isEmpty()) {
-                Toast.makeText(requireContext(), "Empty Story!", Toast.LENGTH_SHORT).show()
-            } else {
-                showStoriesList(stories)
-            }
-        }
-
         storyViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             showLoading(isLoading)
         }
@@ -73,14 +87,17 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
-        binding.rvStory.visibility = if (isLoading) View.GONE else View.VISIBLE
-    }
-
-    private fun showStoriesList(stories: List<Story>) {
+    @OptIn(ExperimentalPagingApi::class)
+    private fun setupStoryList(token: String) {
         val context = binding.root.context
         val storiesRv = binding.rvStory
+
+        val adapter = ListStoryAdapter()
+        storiesRv.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
 
         storiesRv.layoutManager = if (context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             GridLayoutManager(context, 2)
@@ -88,27 +105,35 @@ class StoryFragment : Fragment(), ListStoryAdapter.OnItemClickListener {
             LinearLayoutManager(context)
         }
 
-        binding.rvStory.setHasFixedSize(true)
-        binding.rvStory.adapter = ListStoryAdapter(stories).apply {
-            listener = this@StoryFragment
+        storiesRv.setHasFixedSize(true)
+
+        storyViewModel.getPagingStories(token).observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
         }
+
+        adapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: ListStoryDetail, sharedView: View) {
+                val intent = Intent(requireContext(), DetailStoryActivity::class.java)
+                intent.putExtra(Constants.DETAIL_STORY, data)
+
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    requireActivity(),
+                    sharedView,
+                    ViewCompat.getTransitionName(sharedView) ?: ""
+                )
+
+                startActivity(intent, options.toBundle())
+            }
+        })
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.rvStory.visibility = if (isLoading) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onItemClicked(item: Story, sharedView: View) {
-        val intent = Intent(requireContext(), DetailStoryActivity::class.java)
-        intent.putExtra(Constants.DETAIL_STORY, item)
-
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-            requireActivity(),
-            sharedView,
-            ViewCompat.getTransitionName(sharedView) ?: ""
-        )
-
-        startActivity(intent, options.toBundle())
     }
 }

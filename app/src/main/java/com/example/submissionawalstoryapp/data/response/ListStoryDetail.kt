@@ -1,4 +1,4 @@
-package com.example.submissionawalstoryapp.data.database
+package com.example.submissionawalstoryapp.data.response
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

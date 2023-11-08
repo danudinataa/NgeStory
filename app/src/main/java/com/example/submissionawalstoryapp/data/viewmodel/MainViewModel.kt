@@ -6,14 +6,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.submissionawalstoryapp.data.database.ListStoryDetail
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.repository.MainRepository
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginDataAccount
 import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.File
 
 class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
 

@@ -1,7 +1,6 @@
 package com.example.submissionawalstoryapp.data.response
 
 import android.os.Parcelable
-import com.example.submissionawalstoryapp.data.database.ListStoryDetail
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

@@ -8,26 +8,34 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.submissionawalstoryapp.data.database.ListStoryDetail
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.response.Story
 import com.example.submissionawalstoryapp.databinding.ItemStoryLayoutBinding
 import com.example.submissionawalstoryapp.utils.Helper.withDateFormat
 
-class ListStoryAdapter(private val githubUserList: List<Story>)
+class ListStoryAdapter
     : PagingDataAdapter<ListStoryDetail, ListStoryAdapter.CustomViewHolder>(StoryDetailDiffCallback()) {
 
-    lateinit var listener: OnItemClickListener
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: ListStoryDetail, sharedView: View)
+    }
 
     inner class CustomViewHolder(val binding: ItemStoryLayoutBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        fun bindList(story: Story){
+        fun bindList(story: ListStoryDetail){
             ViewCompat.setTransitionName(binding.imgStory, "img_story_anim")
             Glide.with(itemView.context)
                 .load(story.photoUrl)
                 .skipMemoryCache(true)
                 .into(binding.imgStory)
             binding.tvUsername.text = story.name
-            binding.tvDate.text = story.createdAt.withDateFormat()
+            binding.tvDate.text = story.createdAt?.withDateFormat() ?: "-"
             binding.tvDescription.text = story.description
         }
     }
@@ -53,18 +61,10 @@ class ListStoryAdapter(private val githubUserList: List<Story>)
         )
     }
 
-    override fun getItemCount(): Int {
-        return githubUserList.size
-    }
-
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.bindList(githubUserList[position])
+        getItem(position)?.let { holder.bindList(it) }
         holder.itemView.setOnClickListener {
-            listener.onItemClicked(githubUserList[position], holder.binding.imgStory)
+            getItem(position)?.let { it1 -> onItemClickCallback.onItemClicked(it1, holder.binding.imgStory) }
         }
-    }
-
-    interface OnItemClickListener {
-        fun onItemClicked(item: Story, sharedView: View)
     }
 }

@@ -5,7 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.example.submissionawalstoryapp.data.database.ListStoryDetail
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.database.RemoteKeys
 import com.example.submissionawalstoryapp.data.database.StoryDatabase
 import com.example.submissionawalstoryapp.data.remote.APIService

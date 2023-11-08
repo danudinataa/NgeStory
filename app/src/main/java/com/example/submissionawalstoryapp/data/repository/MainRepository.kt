@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.submissionawalstoryapp.data.database.ListStoryDetail
+import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.database.StoryDatabase
 import com.example.submissionawalstoryapp.data.remote.APIConfig
 import com.example.submissionawalstoryapp.data.remote.APIService
@@ -23,7 +23,6 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 
 class MainRepository(
     private val storyDatabase: StoryDatabase,
