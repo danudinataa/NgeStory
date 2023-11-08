@@ -47,4 +47,6 @@
     <string name="use_marked_location">Tandai Lokasi</string>
     <string name="icon_location">Icon Location</string>
     <string name="choose_your_location">Pilih lokasi kamu!</string>
+    <string name="success_logout">Berhasil Logout!</string>
+    <string name="maps">Peta</string>
 </resources>

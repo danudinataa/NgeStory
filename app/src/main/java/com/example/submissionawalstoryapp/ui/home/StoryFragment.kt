@@ -24,6 +24,7 @@ import com.example.submissionawalstoryapp.ui.adapter.ListStoryAdapter
 import com.example.submissionawalstoryapp.ui.adapter.LoadingStateAdapter
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
 import com.example.submissionawalstoryapp.ui.detail.DetailStoryActivity
+import com.example.submissionawalstoryapp.ui.maps.MapsActivity
 import com.example.submissionawalstoryapp.ui.story.AddStoryActivity
 import com.example.submissionawalstoryapp.utils.Constants
 import com.example.submissionawalstoryapp.utils.UserPreferences
@@ -56,8 +57,14 @@ class StoryFragment : Fragment() {
         }
 
         observeViewModel()
+
         binding.fabAddstory.setOnClickListener {
             val intent = Intent(binding.root.context, AddStoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.fabMapstory.setOnClickListener{
+            val intent = Intent(binding.root.context, MapsActivity::class.java)
             startActivity(intent)
         }
         return root

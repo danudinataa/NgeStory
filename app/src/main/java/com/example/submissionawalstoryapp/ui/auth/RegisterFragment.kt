@@ -1,28 +1,19 @@
 package com.example.submissionawalstoryapp.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.submissionawalstoryapp.R
 import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
-import com.example.submissionawalstoryapp.data.viewmodel.DataStoreViewModel
 import com.example.submissionawalstoryapp.data.viewmodel.MainViewModel
 import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
-import com.example.submissionawalstoryapp.data.viewmodel.RegisterViewModel
-import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.FragmentRegisterBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
-import com.example.submissionawalstoryapp.ui.home.MainActivity
-import com.example.submissionawalstoryapp.ui.home.dataStore
 import com.example.submissionawalstoryapp.utils.Helper
-import com.example.submissionawalstoryapp.utils.UserPreferences
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
