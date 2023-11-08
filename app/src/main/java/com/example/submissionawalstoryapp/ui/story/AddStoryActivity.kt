@@ -22,6 +22,7 @@ import com.example.submissionawalstoryapp.data.viewmodel.MainViewModelFactory
 import com.example.submissionawalstoryapp.data.viewmodel.ViewModelFactory
 import com.example.submissionawalstoryapp.databinding.ActivityAddStoryBinding
 import com.example.submissionawalstoryapp.ui.customview.CustomDialog
+import com.example.submissionawalstoryapp.ui.home.MainActivity
 import com.example.submissionawalstoryapp.ui.home.dataStore
 import com.example.submissionawalstoryapp.ui.maps.PickLocationActivity
 import com.example.submissionawalstoryapp.utils.Constants
@@ -69,13 +70,13 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
+        checkAndRequestPermissions()
         with(binding) {
             btnGallery.setOnClickListener { chooseFromGallery() }
             btnCamera.setOnClickListener { takePhotoFromCamera() }
             btnSubmit.setOnClickListener { submitStory() }
             llDetailLocation.setOnClickListener { chooseLocation() }
         }
-        checkAndRequestPermissions()
     }
 
     private fun checkAndRequestPermissions() {
@@ -189,6 +190,8 @@ class AddStoryActivity : AppCompatActivity() {
                     latlng?.latitude,
                     latlng?.longitude,
                     token)
+
+                showSuccessDialog()
             }
         }
     }
