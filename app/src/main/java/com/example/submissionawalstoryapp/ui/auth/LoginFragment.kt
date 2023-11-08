@@ -112,6 +112,7 @@ class LoginFragment : Fragment() {
             dataStoreViewModel.saveLoginSession(true)
             user?.loginResult!!.token?.let { dataStoreViewModel.saveToken(it) }
             user.loginResult.name?.let { dataStoreViewModel.saveName(it) }
+            user.loginResult.userId?.let { dataStoreViewModel.saveUser(it) }
         } else {
             CustomDialog(requireContext(), message, R.raw.error_anim)
         }

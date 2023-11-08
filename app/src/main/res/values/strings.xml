@@ -67,4 +67,5 @@
     <string name="start_point">Start Point</string>
     <string name="icon_location">Icon Location</string>
     <string name="choose_your_location">Choose your location!</string>
+    <string name="success_logout">Successful Logout!</string>
 </resources>

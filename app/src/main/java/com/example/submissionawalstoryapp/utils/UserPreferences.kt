@@ -37,7 +37,13 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
 
     fun getName(): Flow<String> {
         return dataStore.data.map { preferences ->
-            preferences[NAME] ?: ""
+            preferences[NAME] ?: "Unknown"
+        }
+    }
+
+    fun getUser(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[USER_ID] ?: "Unknown"
         }
     }
 
@@ -48,6 +54,12 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
     }
 
+    suspend fun saveUser(userId: String) {
+        dataStore.edit { preferences ->
+            preferences[USER_ID] = userId
+        }
+    }
+
     suspend fun clearDataLogin() {
         dataStore.edit { preferences ->
             preferences.remove(LOGIN_SESSION)
@@ -55,6 +67,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences.remove(NAME)
         }
     }
+
+
 
     companion object {
         @Volatile
@@ -71,6 +85,7 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         private val LOGIN_SESSION = booleanPreferencesKey("login_session")
         private val TOKEN = stringPreferencesKey("token")
         private val NAME = stringPreferencesKey("name")
+        private val USER_ID = stringPreferencesKey("user_id")
 
     }
 }

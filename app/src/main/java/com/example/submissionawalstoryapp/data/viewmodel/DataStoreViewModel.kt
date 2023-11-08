@@ -33,9 +33,19 @@ class DataStoreViewModel(private val pref: UserPreferences) : ViewModel() {
         return pref.getName().asLiveData()
     }
 
+    fun getUser(): LiveData<String> {
+        return pref.getUser().asLiveData()
+    }
+
     fun saveName(token: String) {
         viewModelScope.launch {
             pref.saveName(token)
+        }
+    }
+
+    fun saveUser(userId: String) {
+        viewModelScope.launch {
+            pref.saveUser(userId)
         }
     }
 
@@ -44,5 +54,7 @@ class DataStoreViewModel(private val pref: UserPreferences) : ViewModel() {
             pref.clearDataLogin()
         }
     }
+
+
 
 }

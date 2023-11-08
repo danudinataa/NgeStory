@@ -14,6 +14,7 @@ import com.example.submissionawalstoryapp.data.remote.APIService
 import com.example.submissionawalstoryapp.data.response.LocationStory
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.response.LoginDataAccount
+import com.example.submissionawalstoryapp.data.response.LoginResult
 import com.example.submissionawalstoryapp.data.response.Register
 import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
 import com.example.submissionawalstoryapp.data.response.UploadStory
