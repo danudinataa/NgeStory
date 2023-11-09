@@ -97,8 +97,8 @@ class MainViewModelTest {
             "fileName",
             requestImageFile
         )
-        val description: RequestBody = "ini description".toRequestBody("text/plain".toMediaType())
-        val token = "ini token"
+        val description: RequestBody = "this is description".toRequestBody("text/plain".toMediaType())
+        val token = "this is token"
         val latlng = LatLng(1.1, 1.1)
 
         mainViewModel.postCreateStory(imageMultipart, description, latlng.latitude, latlng.longitude, token)

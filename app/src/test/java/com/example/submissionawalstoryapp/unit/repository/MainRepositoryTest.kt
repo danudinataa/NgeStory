@@ -60,7 +60,7 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun `test getResponseLogin function is working`() {
+    fun `verify getResponseLogin function is working`() {
         val dummyRequestLogin = generateDummyRequestLogin()
         val dummyResponseLogin = generateDummyResponseLogin()
 
@@ -94,7 +94,7 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun `test getResponseRegister function is working`() {
+    fun `verify getResponseRegister function is working`() {
         val dummyRequestRegister = generateDummyRequestRegister()
         val expectedRegisterMessage = MutableLiveData<String>()
         expectedRegisterMessage.value = "User Created"
@@ -112,7 +112,7 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun `test upload function is working`() {
+    fun `verify upload function is working`() {
         val expectedRegisterMessage = MutableLiveData<String>()
         expectedRegisterMessage.value = "Story Uploaded"
 
@@ -152,7 +152,7 @@ class MainRepositoryTest {
     }
 
     @Test
-    fun `test getStories function is working`() {
+    fun `verify getStories function is working`() {
         val dummyStories = generateDummyNewsEntity()
         val expectedStories = MutableLiveData<List<ListStoryDetail>>()
         expectedStories.value = dummyStories
@@ -220,12 +220,12 @@ class MainRepositoryTest {
     @ExperimentalCoroutinesApi
     @ExperimentalPagingApi
     @Test
-    fun `test getPagingStory function is working and should not null`() = runTest {
+    fun `verify getPagingStory function is working and should not null`() = runTest {
         val noopListUpdateCallback = NoopListCallback()
         val dummyStory = generateDummyNewStories()
         val data = PagedTestDataSources.snapshot(dummyStory)
         val story = MutableLiveData<PagingData<ListStoryDetail>>()
-        val token = "this is token"
+        val token = "ini token"
         story.value = data
 
         `when`(mainRepository.getPagingStories(token)).thenReturn(story)
