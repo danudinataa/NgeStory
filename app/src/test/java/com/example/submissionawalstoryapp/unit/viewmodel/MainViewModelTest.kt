@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.*
 import androidx.recyclerview.widget.ListUpdateCallback
+import com.example.submissionawalstoryapp.data.repository.MainRepository
 import com.example.submissionawalstoryapp.data.response.ListStoryDetail
 import com.example.submissionawalstoryapp.data.response.Login
 import com.example.submissionawalstoryapp.data.viewmodel.MainViewModel
@@ -28,6 +29,8 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -47,6 +50,9 @@ class MainViewModelTest {
     @get:Rule
     var mainDispatcherRule = MainDispatcherRule()
 
+    @Mock
+    private lateinit var mainRepository: MainRepository
+
     private lateinit var mainViewModel: MainViewModel
 
     @Mock
@@ -54,7 +60,7 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        mainViewModel = Mockito.mock(MainViewModel::class.java)
+        mainViewModel = MainViewModel(mainRepository)
     }
 
     // upload
@@ -67,8 +73,7 @@ class MainViewModelTest {
 
         val actualRegisterMessage = mainViewModel.message.getOrAwaitValue()
 
-        Mockito.verify(mainViewModel).message
-        Assert.assertNotNull(actualRegisterMessage)
+        assertNotNull(actualRegisterMessage)
         Assert.assertEquals(expectedRegisterMessage.value, actualRegisterMessage)
     }
 
@@ -81,9 +86,8 @@ class MainViewModelTest {
 
         val actualLoading = mainViewModel.isLoading.getOrAwaitValue()
 
-        Mockito.verify(mainViewModel).isLoading
-        Assert.assertNotNull(actualLoading)
-        Assert.assertEquals(expectedLoadingData.value, actualLoading)
+        assertNotNull(actualLoading)
+        assertEquals(expectedLoadingData.value, actualLoading)
     }
 
     @Test
@@ -102,19 +106,12 @@ class MainViewModelTest {
         val latlng = LatLng(1.1, 1.1)
 
         mainViewModel.postCreateStory(imageMultipart, description, latlng.latitude, latlng.longitude, token)
-        Mockito.verify(mainViewModel).postCreateStory(
-            imageMultipart,
-            description,
-            latlng.latitude,
-            latlng.longitude,
-            token
-        )
 
         `when`(mainViewModel.message).thenReturn(expectedUploadMessage)
 
         val actualUploadMessage = mainViewModel.message.getOrAwaitValue()
         Mockito.verify(mainViewModel).message
-        Assert.assertNotNull(actualUploadMessage)
+        assertNotNull(actualUploadMessage)
         Assert.assertEquals(expectedUploadMessage.value, actualUploadMessage)
     }
 
@@ -140,8 +137,7 @@ class MainViewModelTest {
         differ.submitData(actualData)
 
         advanceUntilIdle()
-        Mockito.verify(mainViewModel).getPagingStories(token)
-        Assert.assertNotNull(differ.snapshot())
+        assertNotNull(differ.snapshot())
         assertEquals(dummyStory.size, differ.snapshot().size)
         assertEquals(dummyStory[0].name, differ.snapshot()[0]?.name)
     }
@@ -166,9 +162,8 @@ class MainViewModelTest {
         differ.submitData(actualData)
 
         advanceUntilIdle()
-        Mockito.verify(mainViewModel).getPagingStories(token)
-        Assert.assertNotNull(differ.snapshot())
-        Assert.assertTrue(differ.snapshot().isEmpty())
+        assertNotNull(differ.snapshot())
+        assertTrue(differ.snapshot().isEmpty())
         print(differ.snapshot().size)
     }
 
@@ -207,7 +202,7 @@ class MainViewModelTest {
         val actualMessage = mainViewModel.message.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).message
-        Assert.assertNotNull(actualMessage)
+        assertNotNull(actualMessage)
         Assert.assertEquals(expectedLoginMessage.value, actualMessage)
     }
 
@@ -221,7 +216,7 @@ class MainViewModelTest {
         val actualLoading = mainViewModel.isLoading.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).isLoading
-        Assert.assertNotNull(actualLoading)
+        assertNotNull(actualLoading)
         Assert.assertEquals(expectedLoadingData.value, actualLoading)
     }
 
@@ -237,7 +232,7 @@ class MainViewModelTest {
         val actualLoginResponse = mainViewModel.userlogin.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).userlogin
-        Assert.assertNotNull(actualLoginResponse)
+        assertNotNull(actualLoginResponse)
         assertEquals(expectedLogin.value, actualLoginResponse)
     }
 
@@ -258,7 +253,7 @@ class MainViewModelTest {
         val actualData = mainViewModel.userlogin.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).userlogin
-        Assert.assertNotNull(expectedResponseLogin)
+        assertNotNull(expectedResponseLogin)
         assertEquals(expectedResponseLogin.value, actualData)
     }
 
@@ -273,7 +268,7 @@ class MainViewModelTest {
         val actualRegisterMessage = mainViewModel.message.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).message
-        Assert.assertNotNull(actualRegisterMessage)
+        assertNotNull(actualRegisterMessage)
         Assert.assertEquals(expectedRegisterMessage.value, actualRegisterMessage)
     }
 
@@ -287,7 +282,7 @@ class MainViewModelTest {
         val actualLoading = mainViewModel.isLoading.getOrAwaitValue()
 
         Mockito.verify(mainViewModel).isLoading
-        Assert.assertNotNull(actualLoading)
+        assertNotNull(actualLoading)
         Assert.assertEquals(expectedLoadingData.value, actualLoading)
     }
 
@@ -299,15 +294,13 @@ class MainViewModelTest {
 
         mainViewModel.register(dummyRequestRegister)
 
-        Mockito.verify(mainViewModel).register(dummyRequestRegister)
 
         `when`(mainViewModel.message).thenReturn(expectedRegisterMessage)
 
         val actualData = mainViewModel.message.getOrAwaitValue()
 
-        Mockito.verify(mainViewModel).message
-        Assert.assertNotNull(actualData)
-        Assert.assertEquals(expectedRegisterMessage.value, actualData)
+        assertNotNull(actualData)
+        assertEquals(expectedRegisterMessage.value, actualData)
     }
 
 }

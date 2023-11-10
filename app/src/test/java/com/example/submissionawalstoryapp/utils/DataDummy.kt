@@ -9,8 +9,8 @@ import com.example.submissionawalstoryapp.data.response.RegisterDataAccount
 object DataDummy {
 
     fun generateDummyNewsEntity(): List<ListStoryDetail> {
-        val newsList = ArrayList<ListStoryDetail>()
-        for (i in 0..5) {
+        val newsList = arrayListOf<ListStoryDetail>()
+        for (i in 0..100) {
             val stories = ListStoryDetail(
                 "Title $i",
                 "this is name",
@@ -26,8 +26,8 @@ object DataDummy {
     }
 
     fun generateDummyNewStories(): List<ListStoryDetail> {
-        val newsList = ArrayList<ListStoryDetail>()
-        for (i in 0..5) {
+        val newsList = arrayListOf<ListStoryDetail>()
+        for (i in 0..100) {
             val stories = ListStoryDetail(
                 "Title $i",
                 "this is name",
