@@ -180,7 +180,7 @@ class MainRepository(
         val pager = Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = StoryRemoteMediator(storyDatabase, apiService, token),
-            pagingSourceFactory = { storyDatabase.getListStoryDetailDao().getAllStories() }
+            pagingSourceFactory = { storyDatabase.getListStoryDetailDao().getAllStories()}
         )
         return pager.liveData
     }
